@@ -1,37 +1,49 @@
 "use strict";
 /**
- * 
+ *
  * @param {number} fatherAge
- * @param {number} sonAge 
- * @returns number diference of years
+ * @param {number} sonAge
+ * @returns {number} difference of years
  */
-const yearDiferent = (fatherAge, sonAge) => {
-  let year = 0;
+const getYearDifferent = (fatherAge, sonAge) => {
   if (
-    sonAge > fatherAge ||
-    fatherAge <= 0 ||
     sonAge <= 0 ||
-    fatherAge - sonAge < 15
-  ) {
-    year = NaN;
+    fatherAge - sonAge < 15 ||
+    typeof fatherAge !== "number" ||
+    typeof sonAge !== "number"
+  )
     return NaN;
-  } else {
-    year = fatherAge - sonAge - sonAge;
-    return year ;
-  }
+  else return fatherAge - 2 * sonAge;
 };
 
-const message = (year) => {
-  if (year === NaN) {
-    console.log("Invalid data");
-  } else if (year === 0) {
-    console.log("The father is twice as old as the son");
-  } else if (year > 0) {
-    console.log(`The father will be twice as old as the son in ${year} years`);
-  } else {
-    console.log(`The father was twice as old as the son ${-year} years ago`);
+/**
+ *
+ * @param {number} year
+ * @returns {string} message
+ */
+const sendMessage = (year) => {
+  if (Number.isNaN(year)) {
+    return "Invalid data";
   }
+
+  if (year === 0) {
+    return "The father is twice as old as the son";
+  }
+
+  if (year === 1) {
+    return "The father will be twice as old as the son in 1 year";
+  }
+
+  if (year === -1) {
+    return "The father was twice as old as the son 1 year ago";
+  }
+
+  if (year > 0) {
+    return `The father will be twice as old as the son in ${year} years`;
+  }
+
+  return `The father was twice as old as the son ${Math.abs(year)} years ago`;
 };
-const result = yearDiferent(44, 20);
-message(result);
-console.log(typeof yearDiferent(44, 20) === "number");
+
+const result = getYearDifferent(44, 20);
+console.log(sendMessage(result));
